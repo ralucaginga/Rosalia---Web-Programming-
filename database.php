@@ -110,13 +110,16 @@
                   <td><?php echo $row["Marime"];?></td>
                   <td><?php echo $row["Pret"];?></td>
                   <td>
-              <?php echo "<a href=\"view.php?id=".$row['ID']."\">View</a>
-              <a href=\"edit.php?id=".$row['ID']."\">Edit</a>
-              <a href=\"delete.php?id=".$row['ID']."\" onclick=\"return confirm('Are you sure?')\">Delete</a>"?></td>
+              <?php echo "<a href=\"view.php?id=".$row['ID']."\">View</a>";?>
+              <?php if($_SESSION['user_name']=="Admin")echo "<a href=\"edit.php?id=".$row['ID']."\">Edit</a>";?>
+              <?php if($_SESSION['user_name']=="Admin")echo "<a href=\"delete.php?id=".$row['ID']."\" onclick=\"return confirm('Are you sure?')\">Delete</a>"?>
+                  </td>
               </tr>
               <?php }?>
           </table>  
+          <?php if($_SESSION['user_name']=="Admin"){?>
           <a href="upload.php">Upload an image</a>
+          <?php } ?>
           
       </div>
      </div>

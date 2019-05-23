@@ -40,13 +40,14 @@
                 if((($_POST['username']==$user)&&($_POST['password']==$password))||(($_POST['username']==$adminuser)&&($_POST['password']==$adminpass)))
                 {
                     $_SESSION['user_name']=$_POST['username'];
-                    if(isset($_POST['RememberMe']))
-                    {
+                    //if(isset($_POST['RememberMe']))
+                    //{
                         setcookie('username',$_POST['username'],time()+60*60*24*365);
                         setcookie('password',md5($_POST['password']),time()+60*60*24*365);
                         setcookie('rememberme',true,time()+60*60*24*365);
-                    }
+                  //  }
                     header('Location: home.php');
+                    
                 }
                 else
                 {
