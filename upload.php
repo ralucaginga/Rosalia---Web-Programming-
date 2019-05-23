@@ -72,9 +72,9 @@
   
     <div class="site-section" align="center">
       <div class="container">
-          <h4>Upload an image</h4>
+          <h4>Insert a record</h4>
           <form method="post" action="save.php" enctype="multipart/form-data">
-              <input type="hidden" name="size" value="100000">
+               <input type="hidden" name="size" value="100000">
               Nume:<br> <input type="text" name="Nume"><br/>
               Imagine:<br><input type="file" name="Imagine" align="right"><br/>
               Culoare:<br><input type="text" name="Culoare"><br/>

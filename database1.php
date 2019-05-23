@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <?php 
     ob_start();
+    session_start();
+    session_regenerate_id();
 ?>
 <html lang="en">
   <head>
@@ -22,7 +24,7 @@
     <script src="js/anti_right.js"></script>
   </head>
   <body>
-  
+      
   <div class="site-wrap">
 
     <div class="site-mobile-menu">
@@ -33,6 +35,7 @@
       </div>
       <div class="site-mobile-menu-body"></div>
     </div>
+      
     
     <header class="site-navbar py-1" role="banner">
 
@@ -46,60 +49,72 @@
               <nav class="site-navigation position-relative text-right text-lg-center" role="navigation">
   
                 <ul class="site-menu js-clone-nav mx-auto d-none d-lg-block">
-                  <li><a href="index.php">Home</a></li>
-                  <li><a href="about.php">About</a></li>
-                  <li><a href="logare.php">Login</a></li>
-                   <li><a href="database1.php">Database</a></li>
-                  <li class="active"><a href="contact.php">Contact</a></li>
-                  </ul>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="about.php">About</a></li>
+                <li><a href="logare.php">Login</a></li>
+                <li class="active"><a href="database1.php">Database</a></li>
+                <li><a href="contact.php">Contact</a></li>
+              </ul>
               </nav>
             </div>
   
             <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
   
           </div>
-  
           </div>
         
         
       </header>
 
   
-    <div class="site-section bg-light">
+    <div class="site-section" align="center">
       <div class="container">
-        <div class="row">
-          <div class="col-md-7 mb-5">
-              <!--HARTA-->
-              <div class="mapouter"
-                ><div class="gmap_canvas">
-                  <iframe width="600" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=university%20of%20alexandru%20ioan%20cuza&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
-                  </iframe>
-                  <a href="https://www.emojilib.com"></a>
-                </div>
-                <style></style>
-              </div>
-
-
-          </div>
-          <div class="col-md-5">
-            
-            <div class="p-4 mb-3 bg-white">
-              <p class="mb-0 font-weight-bold">Address</p>
-              <p class="mb-4">Bulevardul Carol I, Nr.11, 700506, Iaşi, România.</p>
-
-              <p class="mb-0 font-weight-bold">Phone</p>
-              <p class="mb-4"><a href="#">0232 20 1000</a></p>
-
-              <p class="mb-0 font-weight-bold">Email Address</p>
-              <p class="mb-0"><a href="#">gingaraluca@gmail.com</a></p>
-
-              
-            </div>
-            
-          </div>
-        </div>
+         <?php
+          include 'connection.php';
+          $sql="SELECT * FROM flowers ";
+          //if(!isset($_POST['reset']))
+            //{
+            if(isset($_POST["search"]))
+                    {
+                        $search_term = mysqli_real_escape_string($con, $_POST["search_box"]);
+                        $sql.="WHERE Nume='{$search_term}'";
+                        $sql.=" OR Culoare='{$search_term}'";
+                    }
+           // }
+          $query=mysqli_query($con,$sql)or die(mysqli_error($con));
+         ?>
+          
+          <form name="search_form" method="post" action="database1.php">
+              Search:<input type="text" name="search_box" value=""/>
+              <input type="submit" name="search" value="Search the table">
+              <input type="reset" value="Reset"/>       
+          </form>
+          
+          <table width="70" cellpadding="4" cellspace="4">
+              <tr>
+                  <th><strong>Nume</strong></th>
+                  <th><strong>Imagine</strong></th>
+                  <th><strong>Culoare</strong></th>
+                  <th><strong>Marime</strong></th>
+                  <th><strong>Pret</strong></th>
+                  <th colspan="3" align="center"><strong>Actions</strong></th>
+              </tr>
+              <?php while($row=mysqli_fetch_array($query)){?>
+              <tr style="border-bottom: 1px solid black;">
+                  <td><?php echo $row["Nume"];?></td>
+                  <td><img src="<?php echo $row["Imagine"];?>" width="200" height="200"></td>
+                  <td><?php echo $row["Culoare"];?></td>
+                  <td><?php echo $row["Marime"];?></td>
+                  <td><?php echo $row["Pret"];?></td>
+                  <td>
+              <?php echo "<a href=\"view1.php?id=".$row['ID']."\">View</a>";?>
+              </td>
+              </tr>
+              <?php }?>
+          </table> 
+          
       </div>
-    </div>
+     </div>
 
     
     <footer class="site-footer">
@@ -120,7 +135,6 @@
   <script src="js/jquery.magnific-popup.min.js"></script>
   <script src="js/bootstrap-datepicker.min.js"></script>
   <script src="js/aos.js"></script>
-
   <script src="js/main.js"></script>
     
   </body>

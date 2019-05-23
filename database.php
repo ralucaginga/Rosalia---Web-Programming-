@@ -118,7 +118,7 @@
               <?php }?>
           </table>  
           <?php if($_SESSION['user_name']=="Admin"){?>
-          <a href="upload.php">Upload an image</a>
+          <a href="upload.php">Insert and Upload</a>
           <?php } ?>
           
       </div>

@@ -53,7 +53,7 @@
                 <!--<li><a href="discount.html">Logare</a></li>-->
                 <li><a href="about.php">About</a></li>
                 <li><a href="logare.php">Login</a></li>
-                
+                <li><a href="database1.php">Database</a></li>
                 <li><a href="contact.php">Contact</a></li>
                 <!-- <li><a href="booking.html">Book Online</a></li> -->
               </ul>
